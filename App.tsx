@@ -1,28 +1,29 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { View, Text, StatusBar, useColorScheme } from 'react-native';
+import React from 'react';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  useTheme,
+} from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useAuthState } from './src/stores/auth-store';
+import AppNavigator from './src/navigations/AppNavigator';
+import RootNavigator from './src/navigations/RootNavigator';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
+  const isDarkMode = useColorScheme() == 'dark';
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer theme={DefaultTheme}>
+        <StatusBar
+          barStyle={isDarkMode ? 'dark-content' : 'light-content'}
+          backgroundColor={DefaultTheme.colors.background}
+        />
+        <RootNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+};
 
 export default App;
